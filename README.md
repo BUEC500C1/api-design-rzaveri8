@@ -10,4 +10,8 @@
 
 ## Dependencies
 
+pip install tweepy 
+
 ## Running the project
+
+## Documentation
