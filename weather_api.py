@@ -18,8 +18,8 @@ def getAirportLoc(code):
     with open('airport-codes.csv', 'rb') as f:
         rows = list(csv.reader(f))
         csv_file_reader = csv.DictReader(f)
-        for i in range(1,3592):
-            for j in range(0,2):
+        for i in range(1,3592): #this goes through all of the rows
+            for j in range(0,2): #checks each colomn
                 if mycode == rows[i][j]:
                     loc = str(rows[i][j-1])
                     print rows[i][j-1]
@@ -28,7 +28,11 @@ def getAirportLoc(code):
 def getWeather(loc):
     api_address='http://api.openweathermap.org/data/2.5/weather?appid=b1a9759151e09b557fb47fa074cd751e&q='
     city = loc
-    url = api_address + city
+    try:
+        url = api_address + city
+    except TypeError:
+        return "Error: Not a string"
+        #return
 
 #below is my error checking for the API.
     try:
@@ -50,9 +54,9 @@ def getWeather(loc):
         print "City not found, please try again"
         return
     except NameError:
-        print "NAME ERROR"
+        print "Error: Not a string"
         return
 
 #print(formatted_data)
-getWeather('afdssdfsdf')
+getWeather(7)
 #getAirportLoc()
