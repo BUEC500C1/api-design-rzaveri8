@@ -1,23 +1,16 @@
-import weather-api
+import weather_api
 import pytest
 
 
 # content of test_class.py
 class TestClass:
+    # tests for airport code input
     def test_exist(self):
-        result = hasattr(int2roman, 'int_to_Roman')
+        result = hasattr(weather_api, 'getAirportLoc')
         assert result, "Function does not exist!"
+    #def test_correct(self):
+        #result = weather-api.getAirportLoc('AES')
+        #assert result == "Aalesund, Norway "
     def test_correct(self):
-        result = int2roman.int_to_Roman(4)
-        assert result == "IV"
-    def test_correct(self):
-        result = int2roman.int_to_Roman(70000)
-        assert result == "LXX"
-    def test_neg(self):
-        result = int2roman.int_to_Roman(-4)
-        assert result == "ERROR: Not a positive integer"
-    def test_string(self):
-        result = int2roman.int_to_Roman('hello')
-        assert result == "ERROR: Not an integer"
-    def test_value(self):
-        result = int2roman.int_to_Roman(8910394)
+        result = weather_api.getAirportLoc(7)
+        assert result == "ERROR: Not a String"
