@@ -66,9 +66,53 @@ def getWeatherDescription(city):
         return "ERROR:: Not a string"
     return formatted_data
 
+def getWeatherSummary(city):
+    api_address='http://api.openweathermap.org/data/2.5/weather?appid=b1a9759151e09b557fb47fa074cd751e&q='
+    city = city
+    try:
+        url = api_address + city
+    except TypeError:
+        #print "Error: Not a string"
+        return "ERROR: Not a string"
+        #return
+
+#below is my error checking for the API.
+    try:
+        response = requests.get(url).json()
+    except requests.exceptions.HTTPError as errh:
+        print "ERROR: An Http Error occurred:" + repr(errh)
+    except requests.exceptions.ConnectionError as errc:
+        print "ERROR: An Error Connecting to the API occurred:" + repr(errc)
+    except requests.exceptions.Timeout as errt:
+        print "ERROR: A Timeout Error occurred:" + repr(errt)
+    except requests.exceptions.RequestException as err:
+        print "ERROR: An Unknown Error occurred" + repr(err)
+    try:
+        data = response['main']
+    except KeyError:
+        return "ERROR: City not found, please try again"
+    except NameError:
+        return "ERROR:: Not a string"
+
+    temp = data['temp']
+    print "hey temp:" , temp
+    pressure = data['pressure']
+    print "hey press:" , pressure
+    humidity = data['humidity']
+    print "hey humid:" , humidity
+    feels_like = data['feels_like']
+    print "hey feels:" , feels_like
+
+    summary = [temp, pressure, humidity, feels_like]
+    print summary
+
+getWeatherSummary('london')
+
+"""
 tryCode = getAirportLoc('AES')
 print 'this is try location:',tryCode
 tryCity = getCity(tryCode)
 print 'this is try city:',tryCity
 tryWeather = getWeatherDescription(tryCity)
 print 'this is try weather:',tryWeather
+"""
