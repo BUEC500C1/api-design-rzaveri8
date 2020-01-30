@@ -17,11 +17,11 @@ class TestClass:
 
     #tests for weather api output
     def test_weather_exist(self):
-        result = hasattr(weather_api, 'getWeather')
+        result = hasattr(weather_api, 'getCurrWeather')
         assert result, "Function does not exist!"
     def test_weather_correct(self):
-        result = weather_api.getWeather('adsfsdfdsfs')
+        result = weather_api.getCurrWeather('adsfsdfdsfs')
         assert result =="City not found, please try again"
     def test_weather_false(self):
-        result = weather_api.getWeather(7)
+        result = weather_api.getCurrWeather(7)
         assert result == "Error: Not a string"
