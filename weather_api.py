@@ -1,8 +1,6 @@
 #!/usr/bin/python
 #TO DO
-#INPUT CHECKS
-#CHECK IF VALID ISO CODE
-#CHECK IF STRING
+#CONVERT TEMP FROM KELVIn to FARENHEIGHT
 
 import csv
 import sys
@@ -22,12 +20,10 @@ def getAirportLoc(code):
             for j in range(0,2): #checks each colomn
                 if mycode == rows[i][j]:
                     loc = str(rows[i][j-1])
+                    #print "thisi is LOc" , loc
                     return loc
-                else:
-                    #break
-                    #print "Airport Code not found, please try again"
-                    return "ERROR: Airport Code not found, please try again"
-                    #print rows[i][j-1]
+            else:
+                return "Airport Code not found, please try again"
 
 #parsing out just the city
 def getCity(loc):
@@ -41,7 +37,7 @@ def getCity(loc):
     #print city
     return city
 
-def getCurrWeather(city):
+def getWeatherDescription(city):
     api_address='http://api.openweathermap.org/data/2.5/weather?appid=b1a9759151e09b557fb47fa074cd751e&q='
     city = city
     try:
@@ -70,9 +66,9 @@ def getCurrWeather(city):
         return "ERROR:: Not a string"
     return formatted_data
 
-tryCode = getAirportLoc('dsfdsfdsf')
+tryCode = getAirportLoc('AES')
 print 'this is try location:',tryCode
 tryCity = getCity(tryCode)
 print 'this is try city:',tryCity
-tryWeather = getCurrWeather(tryCity)
+tryWeather = getWeatherDescription(tryCity)
 print 'this is try weather:',tryWeather
