@@ -6,6 +6,8 @@
 
 import csv
 import sys
+import requests
+
 
 def getAirportLoc(code):
     check = isinstance(code,str)
@@ -23,4 +25,34 @@ def getAirportLoc(code):
                     print rows[i][j-1]
     return loc
 
+def getWeather(loc):
+    api_address='http://api.openweathermap.org/data/2.5/weather?appid=b1a9759151e09b557fb47fa074cd751e&q='
+    city = loc
+    url = api_address + city
+
+#below is my error checking for the API.
+    try:
+        response = requests.get(url).json()
+    except requests.exceptions.HTTPError as errh:
+        print "An Http Error occurred:" + repr(errh)
+    except requests.exceptions.ConnectionError as errc:
+        print "An Error Connecting to the API occurred:" + repr(errc)
+    except requests.exceptions.Timeout as errt:
+        print "A Timeout Error occurred:" + repr(errt)
+    except requests.exceptions.RequestException as err:
+        print "An Unknown Error occurred" + repr(err)
+    except NameError:
+        print "NAME ERROR"
+        return
+    try:
+        formatted_data = response['weather'][0]['description']
+    except KeyError:
+        print "City not found, please try again"
+        return
+    except NameError:
+        print "NAME ERROR"
+        return
+
+#print(formatted_data)
+getWeather('afdssdfsdf')
 #getAirportLoc()
