@@ -51,12 +51,11 @@ def getWeather(loc):
     try:
         formatted_data = response['weather'][0]['description']
     except KeyError:
-        print "City not found, please try again"
-        return
+        return "City not found, please try again"
     except NameError:
         print "Error: Not a string"
         return
 
 #print(formatted_data)
-getWeather(7)
+getWeather('adsfsdfdsfs')
 #getAirportLoc()
