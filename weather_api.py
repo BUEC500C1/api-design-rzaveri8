@@ -5,6 +5,7 @@
 import csv
 import sys
 import requests
+import pytemperature
 
 
 def getAirportLoc(code):
@@ -95,16 +96,16 @@ def getWeatherSummary(city):
         return "ERROR:: Not a string"
 
     temp = data['temp']
-    print "hey temp:" , temp
-    pressure = data['pressure']
-    print "hey press:" , pressure
+    temp = 'Outside Temperature: ' + str(pytemperature.k2f(temp)) + ' Degrees in Fahrenheit' # Kelvin to Fahrenheit
     humidity = data['humidity']
-    print "hey humid:" , humidity
+    humidity = 'Humidity: ' + str(humidity) + '%'
+    #humidity =
     feels_like = data['feels_like']
-    print "hey feels:" , feels_like
+    feels_like = 'Feels like Temperature: ' + str(pytemperature.k2f(feels_like)) + ' Degrees in Fahrenheit'# Kelvin to Fahrenheit
 
-    summary = [temp, pressure, humidity, feels_like]
-    print summary
+    summary = [temp, humidity, feels_like]
+    return summary
+
 
 getWeatherSummary('london')
 
