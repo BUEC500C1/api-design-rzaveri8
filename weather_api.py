@@ -1,11 +1,18 @@
 #!/usr/bin/python
 #TO DO
 #CONVERT TEMP FROM KELVIn to FARENHEIGHT
+"""  build a library/package where I can call your API and pass
+it an airport name and you return back to me the weather information
+"""
 
 import csv
 import sys
 import requests
 import pytemperature
+import flask
+import json
+from flask import jsonify
+import config
 
 
 def getAirportLoc(code):
@@ -38,37 +45,9 @@ def getCity(loc):
     #print city
     return city
 
-def getWeatherDescription(city):
-    api_address='http://api.openweathermap.org/data/2.5/weather?appid=b1a9759151e09b557fb47fa074cd751e&q='
-    city = city
-    try:
-        url = api_address + city
-    except TypeError:
-        #print "Error: Not a string"
-        return "ERROR: Not a string"
-        #return
-
-#below is my error checking for the API.
-    try:
-        response = requests.get(url).json()
-    except requests.exceptions.HTTPError as errh:
-        print "ERROR: An Http Error occurred:" + repr(errh)
-    except requests.exceptions.ConnectionError as errc:
-        print "ERROR: An Error Connecting to the API occurred:" + repr(errc)
-    except requests.exceptions.Timeout as errt:
-        print "ERROR: A Timeout Error occurred:" + repr(errt)
-    except requests.exceptions.RequestException as err:
-        print "ERROR: An Unknown Error occurred" + repr(err)
-    try:
-        formatted_data = response['weather'][0]['description']
-    except KeyError:
-        return "ERROR: City not found, please try again"
-    except NameError:
-        return "ERROR:: Not a string"
-    return formatted_data
-
 def getWeatherSummary(city):
-    api_address='http://api.openweathermap.org/data/2.5/weather?appid=b1a9759151e09b557fb47fa074cd751e&q='
+    key = config.api_key()
+    api_address="http://api.openweathermap.org/data/2.5/weather?" + "appid=" + key + "&q="
     city = city
     try:
         url = api_address + city
@@ -94,20 +73,45 @@ def getWeatherSummary(city):
         return "ERROR: City not found, please try again"
     except NameError:
         return "ERROR:: Not a string"
+    try:
+        formatted_data = response['weather'][0]['description']
+    except KeyError:
+        return "ERROR: City not found, please try again"
+    except NameError:
+        return "ERROR:: Not a string"
 
     temp = data['temp']
-    temp = 'Outside Temperature: ' + str(pytemperature.k2f(temp)) + ' Degrees in Fahrenheit' # Kelvin to Fahrenheit
+    temp = pytemperature.k2f(temp) # Kelvin to Fahrenheit
     humidity = data['humidity']
-    humidity = 'Humidity: ' + str(humidity) + '%'
+    humidity = humidity
     #humidity =
     feels_like = data['feels_like']
-    feels_like = 'Feels like Temperature: ' + str(pytemperature.k2f(feels_like)) + ' Degrees in Fahrenheit'# Kelvin to Fahrenheit
+    feels_like = pytemperature.k2f(feels_like)# Kelvin to Fahrenheit
 
-    summary = [temp, humidity, feels_like]
-    return summary
+    summary = [
+        {'Description': formatted_data,
+        'Outside Temperature': temp,
+        'Humidity': humidity,
+        'feels like': feels_like}
+    ]
+    return jsonify(summary)
 
 
-getWeatherSummary('london')
+
+
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
+
+
+@app.route('/summary', methods=['GET'])
+def summary():
+    Location = getAirportLoc('AES') #put in airport iata code
+    City = getCity(Location) #gets airport city
+    Summary = getWeatherSummary(City) #gets weather from that city
+    return Summary
+
+
+app.run()
 
 """
 tryCode = getAirportLoc('AES')
