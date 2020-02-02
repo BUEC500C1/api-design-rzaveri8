@@ -89,12 +89,14 @@ def getWeatherSummary(city):
     feels_like = pytemperature.k2f(feels_like)# Kelvin to Fahrenheit
 
     summary = [
-        {'Description': formatted_data,
+
+        {
+        'Description': formatted_data,
         'Outside Temperature': temp,
         'Humidity': humidity,
-        'feels like': feels_like}
+        'Feels like': feels_like}
     ]
-    return jsonify(summary)
+    return summary
 
 
 
@@ -108,16 +110,9 @@ def summary():
     Location = getAirportLoc('AES') #put in airport iata code
     City = getCity(Location) #gets airport city
     Summary = getWeatherSummary(City) #gets weather from that city
-    return Summary
+    print Summary
+    main = [{'Location': Location, 'Weather': Summary }]
+    return jsonify(main)
 
 
 app.run()
-
-"""
-tryCode = getAirportLoc('AES')
-print 'this is try location:',tryCode
-tryCity = getCity(tryCode)
-print 'this is try city:',tryCity
-tryWeather = getWeatherDescription(tryCity)
-print 'this is try weather:',tryWeather
-"""
