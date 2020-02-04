@@ -46,7 +46,7 @@ def getCity(loc):
     return city
 
 def getWeatherSummary(city):
-    key = config.api_key()
+    key = sample_config.api_key()
     api_address="http://api.openweathermap.org/data/2.5/weather?" + "appid=" + key + "&q="
     city = city
     try:
