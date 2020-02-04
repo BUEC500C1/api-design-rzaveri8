@@ -1,2 +1,4 @@
 pytemperature
 flask
+requests
+json
