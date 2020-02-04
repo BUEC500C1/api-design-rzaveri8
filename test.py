@@ -1,6 +1,6 @@
 import weather_api
 import pytest
-import config
+import sample_config
 
 
 

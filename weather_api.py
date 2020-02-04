@@ -12,7 +12,7 @@ import pytemperature
 import flask
 import json
 from flask import jsonify
-import config
+import sample_config
 
 
 def getAirportLoc(code):
