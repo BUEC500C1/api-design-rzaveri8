@@ -7,7 +7,6 @@ it an airport name and you return back to me the weather information
 
 import csv
 import sys
-import requests
 import pytemperature
 import flask
 import json
