@@ -110,7 +110,7 @@ def summary():
     Location = getAirportLoc('AES') #put in airport iata code
     City = getCity(Location) #gets airport city
     Summary = getWeatherSummary(City) #gets weather from that city
-    print Summary
+    #print Summary
     main = [{'Location': Location, 'Weather': Summary }]
     return jsonify(main)
 
