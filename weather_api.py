@@ -60,13 +60,13 @@ def getWeatherSummary(city):
     try:
         response = requests.get(url).json()
     except requests.exceptions.HTTPError as errh:
-        print "ERROR: An Http Error occurred:" + repr(errh)
+        return "ERROR: An Http Error occurred:" + repr(errh)
     except requests.exceptions.ConnectionError as errc:
-        print "ERROR: An Error Connecting to the API occurred:" + repr(errc)
+        return "ERROR: An Error Connecting to the API occurred:" + repr(errc)
     except requests.exceptions.Timeout as errt:
-        print "ERROR: A Timeout Error occurred:" + repr(errt)
+        return "ERROR: A Timeout Error occurred:" + repr(errt)
     except requests.exceptions.RequestException as err:
-        print "ERROR: An Unknown Error occurred" + repr(err)
+        return "ERROR: An Unknown Error occurred" + repr(err)
     try:
         data = response['main']
     except KeyError:
