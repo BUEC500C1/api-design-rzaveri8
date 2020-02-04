@@ -1,4 +1,3 @@
 pytemperature
 flask
 requests
-json
