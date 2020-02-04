@@ -5,6 +5,7 @@ import sample_config
 
 
 # content of test_class.py
+#tests. 
 class TestClass:
     # tests for airport code input
     def test_airport_exist(self):
