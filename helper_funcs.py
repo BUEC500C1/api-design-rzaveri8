@@ -33,3 +33,5 @@ def getCity(loc):
     city = result[0]
     #print city
     return city
+#this = getAirportLoc('AES')
+#print this

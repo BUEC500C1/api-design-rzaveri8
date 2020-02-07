@@ -13,7 +13,7 @@ class TestClass:
         result = hasattr(helper_funcs, 'getAirportLoc')
         assert result, "Function does not exist!"
     def test_airport_correct(self):
-        assert getAirportLoc("AES") == "Aalesund, Norway"
+        assert getAirportLoc("AES") == "Aalesund, Norway "
     def test_airport_false(self):
         result = getAirportLoc(7)
         assert result == "ERROR: Not a String"
