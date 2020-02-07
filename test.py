@@ -1,6 +1,4 @@
-import weather_api
-import pytest
-import sample_config
+
 from helper_funcs import getAirportLoc
 from helper_funcs import getCity
 import helper_funcs
