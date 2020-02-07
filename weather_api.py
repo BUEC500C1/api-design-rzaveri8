@@ -77,7 +77,7 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
 
-@app.route('/summary', methods=['GET'])
+@app.route('/api/weather', methods=['GET'])
 def summary():
     Location = getAirportLoc('AES') #put in airport iata code
     City = getCity(Location) #gets airport city
