@@ -10,7 +10,7 @@ def getAirportLoc(code):
         return "ERROR: Not a String"
         break
     mycode = code
-    with open('airport-codes.csv', 'rb') as f:
+    with open('airport-codes.csv', 'r') as f:
         rows = list(csv.reader(f))
         csv_file_reader = csv.DictReader(f)
         for i in range(1,3592): #this goes through all of the rows
